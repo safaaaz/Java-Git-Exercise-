@@ -15,8 +15,8 @@ public class AuthController {
         }
 
 
-    private boolean isValidUserId(int id){
-        if (id >0) {
+    private boolean isValidUserId(String id){
+        if (id != null) {
             return true;
         }
         else {
