@@ -3,7 +3,7 @@ import java.util.UUID;
 public class User {
     private final String id;
     private final String email;
-    private final String name;
+    private  String name;
     private String password;
 
     public User(String email, String name, String password) {
