@@ -6,14 +6,14 @@ public class User {
     private final String name;
     private String password;
 
-    public User(int id, String email, String name, String password) {
+    public User(String email, String name, String password) {
         this.id = UUID.randomUUID().toString();
         this.email = email;
         this.name = name;
         this.password = password;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
