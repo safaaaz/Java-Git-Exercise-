@@ -10,7 +10,7 @@ import java.util.Map;
 public class UserRepo {
 
     private final Gson gson;
-    private File file = null;
+    private File file;
 
 
     public UserRepo() {
