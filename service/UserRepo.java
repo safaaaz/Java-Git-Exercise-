@@ -41,6 +41,7 @@ public class UserRepo {
 
     private static void writeToFile() {
         try(FileOutputStream fileOut = new FileOutputStream("users.json")) {
+            System.out.println(usersData);
             fileOut.write(gson.toJson(usersData).getBytes());
             fileOut.flush();
         }
@@ -54,6 +55,10 @@ public class UserRepo {
         writeToFile();
     }
 
+    static void updateUserEmail(String oldEmail,User user){
+        usersData.remove(oldEmail);
+        updateUser(user);
+    }
     static void updateUser(User user){
         usersData.put(user.getEmail(), user);
         writeToFile();

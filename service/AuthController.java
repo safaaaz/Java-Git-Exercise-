@@ -16,10 +16,13 @@ public class AuthController {
     }
 
 //    public String validateUserInput(User user) {
-//    public String createNewUser(String userName,String userEmail,String userPassword) {
-//        //Yael should enter a unique id for the user
-//        return this.validateUserInput(new User(1,userEmail,userName,userPassword));
-//    }
+    public String createNewUser(String userName,String userEmail,String userPassword) {
+        //Yael should enter a unique id for the user
+        return this.validateUserInput(new User(1,userEmail,userName,userPassword));
+    }
+    public String userLogin(String userEmail,String userPassword){
+        return authService.validateUserLogin(userEmail,userPassword);
+    }
     public String validateUserInput(User user){
         if(isValidUserId(user.getId())
                 && checkUserInput(user.getEmail(), Utils.regexEmail, Utils.invalidMail)

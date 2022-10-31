@@ -11,30 +11,34 @@ public class UserService {
     }
 
     private User isUser(String userEmail){
-        User userExists = map.get(userEmail);
+        Map<String, User> usersData = UserRepo.getUsersData();
+        User userExists = usersData.get(userEmail);
         if (userEmail == null)
             throw new IllegalArgumentException("User doesn't exists");
         else
             return userExists;
     }
-    protected User deleteUser(String userEmail){
+    protected void deleteUser(String userEmail){
         User userExists = isUser(userEmail);
-        return map.remove(userEmail);
+        UserRepo.deleteUser(userExists);
     }
 
     protected User updateUserEmail(String userEmail , String newEmail){
         User userExists = isUser(userEmail);
-        userExists.setEmail(userEmail);
+        userExists.setEmail(newEmail);
+        UserRepo.updateUserEmail(userEmail,userExists);
         return userExists;
     }
     protected User updateUserName(String userEmail , String userName){
         User userExists = isUser(userEmail);
         userExists.setName(userName);
+        UserRepo.updateUser(userExists);
         return userExists;
     }
     protected User updateUserPassword(String userEmail , String userPassword){
         User userExists = isUser(userEmail);
         userExists.setPassword(userPassword);
+        UserRepo.updateUser(userExists);
         return userExists;
     }
 }

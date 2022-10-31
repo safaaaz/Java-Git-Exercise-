@@ -24,14 +24,16 @@ public class AuthService {
             if(usersData.get(userEmail).getPassword().equals(userPassword)){
                 String token = Utility.RandomString(5);
                 tokens.put(token,userEmail);
+                System.out.println("The user has logged in successfully:)");
                 return token;}
-        return null;
+        throw new IllegalArgumentException("Email or password is illegal!!");
     }
     public String validateUserRegister(User user) {
         Map<String,User> usersData = UserRepo.getUsersData();
         if(!usersData.isEmpty()) {
             if (usersData.get(user.getEmail()) == null) {
                     UserRepo.saveNewUser(user);
+                    System.out.println("The user has registered successfully");
                     return validateUserLogin(user.getEmail(), user.getPassword());
             }
             else{
