@@ -1,3 +1,5 @@
+package service;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -9,7 +11,7 @@ import java.util.Map;
 
 public class UserRepo {
 
-    private final Gson gson;
+    private static Gson gson = null;
     private File file;
 
 
@@ -38,10 +40,10 @@ public class UserRepo {
 
 
 
-    Map<Integer, User> getUsersData() throws FileNotFoundException {
+    static Map<Integer, User> getUsersData() throws FileNotFoundException {
         try{
             String result = new String(Files.readAllBytes(Paths.get("./users.json")));
-            return this.gson.fromJson(result, new TypeToken<HashMap<Integer, User>>() {}.getType());
+            return gson.fromJson(result, new TypeToken<HashMap<Integer, User>>() {}.getType());
         }
         catch (IOException e) {
             throw new FileNotFoundException("Can't read from file");
