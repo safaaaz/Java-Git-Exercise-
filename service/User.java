@@ -45,9 +45,9 @@ public class User {
     }
 
     public static int uinqueId(){
-        String lUUID = String.format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16));;
-        int intId = Integer.parseInt(lUUID);
-        return intId;
+        String lUUID = String.format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16));
+        BigInteger intId = new BigInteger(lUUID, 16);
+        return  intId;
     }
 
     @Override
