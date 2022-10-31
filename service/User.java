@@ -2,8 +2,8 @@ package service;
 
 public class User {
     private final int id;
-    private final String email;
-    private final String name;
+    private String email;
+    private String name;
     private String password;
 
     public User(int id, String email, String name, String password) {
@@ -25,5 +25,17 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
