@@ -1,5 +1,10 @@
 package service;
 
+import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.UUID;
+
 public class User {
     private final int id;
     private String email;
@@ -7,7 +12,7 @@ public class User {
     private String password;
 
     public User(int id, String email, String name, String password) {
-        this.id = id;
+        this.id = uinqueId();
         this.email = email;
         this.name = name;
         this.password = password;
@@ -37,6 +42,12 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public static int uinqueId(){
+        String lUUID = String.format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16));;
+        int intId = Integer.parseInt(lUUID);
+        return intId;
     }
 
     @Override
