@@ -10,21 +10,21 @@ import java.util.regex.Pattern;
 
 public class AuthController {
     AuthService authService;
-    Utils utils = new Utils();
 
     public AuthController() {
         this.authService = AuthService.getInstance();
     }
 
-    public String createNewUser(String userName,String userEmail,String userPassword) throws FileNotFoundException {
-        //Yael should enter a unique id for the user
-        return this.validateUserInput(new User(1,userEmail,userName,userPassword));
-    }
-    public String validateUserInput(User user) throws FileNotFoundException {
+//    public String validateUserInput(User user) {
+//    public String createNewUser(String userName,String userEmail,String userPassword) {
+//        //Yael should enter a unique id for the user
+//        return this.validateUserInput(new User(1,userEmail,userName,userPassword));
+//    }
+    public String validateUserInput(User user){
         if(isValidUserId(user.getId())
-                && checkUserInput(user.getEmail(), utils.regexEmail, utils.invalidMail)
-                && checkUserInput(user.getName(), utils.regexUsername, utils.invalidUsername)
-                && checkUserInput(user.getPassword(), utils.regexPassword, utils.invalidPassword)){
+                && checkUserInput(user.getEmail(), Utils.regexEmail, Utils.invalidMail)
+                && checkUserInput(user.getName(), Utils.regexUsername, Utils.invalidUsername)
+                && checkUserInput(user.getPassword(), Utils.regexPassword, Utils.invalidPassword)){
             return authService.validateUserRegister(user);
         }
 
@@ -33,7 +33,7 @@ public class AuthController {
 
     private boolean isValidUserId(int id){
         if (id < 0) {
-            throw new IllegalArgumentException(utils.invalidId);
+            throw new IllegalArgumentException(Utils.invalidId);
         }
         return true;
     }

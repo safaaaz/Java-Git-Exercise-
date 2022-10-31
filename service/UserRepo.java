@@ -13,27 +13,34 @@ public class UserRepo {
 
     private static Gson gson = null;
     private static File file;
+    private static Map<String, User> usersData;
 
-    private static Map<String, User> usersData = new HashMap<>();
 
-
-    public UserRepo() {
-        gson = new Gson();
-        createUsersFile();
-        readUsersData();
-
+    private UserRepo() {
     }
 
-    void createUsersFile(){
+    public static void initUserRepo(){
+        gson = new Gson();
+        usersData = new HashMap<>();
+        createUsersFile();
+        readUsersData();
+    }
+
+    private static void createUsersFile(){
         try {
             file = new File("./users.json");
+            if(!file.exists()){
+                file.createNewFile();
+            }
         } catch (NullPointerException e) {
             throw new RuntimeException("Something went wrong, database file not found", e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    static void writeToFile(Map<String, User> usersData) {
-        try(FileOutputStream fileOut = new FileOutputStream(file.getName())) {
+    private static void writeToFile() {
+        try(FileOutputStream fileOut = new FileOutputStream("users.json")) {
             fileOut.write(gson.toJson(usersData).getBytes());
             fileOut.flush();
         }
@@ -44,17 +51,17 @@ public class UserRepo {
 
     static void saveNewUser(User user){
         usersData.put(user.getEmail(), user);
-        writeToFile(usersData);
+        writeToFile();
     }
 
     static void updateUser(User user){
         usersData.put(user.getEmail(), user);
-        writeToFile(usersData);
+        writeToFile();
     }
 
     static void deleteUser(User user){
         usersData.remove(user.getEmail(), user);
-        writeToFile(usersData);
+        writeToFile();
     }
 
     public static Map<String, User> getUsersData(){
@@ -62,10 +69,13 @@ public class UserRepo {
     }
 
 
-    void readUsersData() {
+    private static void readUsersData() {
         try{
-            String result = new String(Files.readAllBytes(Paths.get(file.getName())));
-            usersData = gson.fromJson(result, new TypeToken<HashMap<Integer, User>>() {}.getType());
+            String result = new String(Files.readAllBytes(Paths.get("./users.json")));
+            Map<String,User> map = gson.fromJson(result, new TypeToken<HashMap<String, User>>() {}.getType());
+            if(map != null){
+                usersData = map;
+            }
         }
         catch (IOException e) {
             throw new RuntimeException("Can't read from file");
