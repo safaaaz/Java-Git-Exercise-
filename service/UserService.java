@@ -27,4 +27,14 @@ public class UserService {
         userExists.setEmail(userEmail);
         return userExists;
     }
+    protected User updateUserName(User user , String userName){
+        User userExists = isUser(user.getEmail());
+        user.setName(userName);
+        return user;
+    }
+    protected User updateUserPassword(User user , String userPassword){
+        User userExists = isUser(user.getEmail());
+        user.setPassword(userPassword);
+        return user;
+    }
 }
