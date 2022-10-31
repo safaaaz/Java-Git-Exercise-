@@ -1,12 +1,18 @@
 package service;
 
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map;
 
 public class AuthService {
     private Map<String,User> tokens;
+    private static AuthService singaleInistance=null;
 
-    public String validateUserLogin(int userId,String userPassword){
+    public AuthService() {
+        this.tokens = new HashMap<>();
+    }
+
+    public String validateUserLogin(int userId, String userPassword){
         Map<Integer,User> usersData = UserRepo.getUsersData();
         if(usersData.get(userId)!=null)
             if(usersData.get(userId).getPassword()==userPassword)
@@ -22,6 +28,11 @@ public class AuthService {
             }
         throw new RuntimeException("Id or Email has been used!");
 
+    }
+    public static AuthService getInstance(){
+        if(singaleInistance==null)
+            singaleInistance = new AuthService();
+        return singaleInistance;
     }
 
 }

@@ -1,17 +1,24 @@
+package service;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AuthController {
+    AuthService service;
 
-    public boolean validateUserInput(User user){
+    public AuthController() {
+        this.service = AuthService.getInstance();
+    }
+
+    public String validateUserInput(User user){
         boolean id = isValidUserId(user.getId());
         boolean email = isValidUserEmail(user.getEmail());
         boolean name = isValidUserName(user.getName());
         boolean password = isValidPassword(user.getPassword());
         if(id && email && name && password)
-            return true;
+           return service.validateUserRegister(user);
         else
-            return false;
+            throw new IllegalArgumentException("Illegal Argument for the user");
         }
 
 
