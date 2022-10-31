@@ -16,6 +16,10 @@ public class AuthController {
         this.authService = AuthService.getInstance();
     }
 
+    public String createNewUser(String userName,String userEmail,String userPassword) throws FileNotFoundException {
+        //Yael should enter a unique id for the user
+        return this.validateUserInput(new User(1,userEmail,userName,userPassword));
+    }
     public String validateUserInput(User user) throws FileNotFoundException {
         if(isValidUserId(user.getId())
                 && checkUserInput(user.getEmail(), utils.regexEmail, utils.invalidMail)

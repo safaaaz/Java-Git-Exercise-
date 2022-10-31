@@ -18,8 +18,10 @@ public class AuthService {
     public String validateUserLogin(String userEmail, String userPassword) {
         Map<String,User> usersData = UserRepo.getUsersData();
         if(usersData.get(userEmail) != null)
-            if(usersData.get(userEmail).getPassword().equals(userPassword))
-                return "token";//save token to user in tokens and return it
+            if(usersData.get(userEmail).getPassword().equals(userPassword)){
+                String token = Utility.RandomString(5);
+                tokens.put(token,userEmail);
+                return token;}
         return null;
     }
     public String validateUserRegister(User user) {
@@ -38,4 +40,7 @@ public class AuthService {
         return singaleInistance;
     }
 
+    public Map<String, String> getTokens() {
+        return tokens;
+    }
 }
