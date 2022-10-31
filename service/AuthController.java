@@ -15,7 +15,12 @@ public class AuthController {
         this.authService = AuthService.getInstance();
     }
 
-    public String validateUserInput(User user) {
+//    public String validateUserInput(User user) {
+//    public String createNewUser(String userName,String userEmail,String userPassword) {
+//        //Yael should enter a unique id for the user
+//        return this.validateUserInput(new User(1,userEmail,userName,userPassword));
+//    }
+    public String validateUserInput(User user){
         if(isValidUserId(user.getId())
                 && checkUserInput(user.getEmail(), Utils.regexEmail, Utils.invalidMail)
                 && checkUserInput(user.getName(), Utils.regexUsername, Utils.invalidUsername)
