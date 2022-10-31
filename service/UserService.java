@@ -21,7 +21,9 @@ public class UserService {
         return map.remove(userEmail);
     }
 
-    protected User updateUserEmail(User user , String email){
-
+    protected User updateUserEmail(User user , String userEmail){
+        User userExists = isUser(userEmail);
+        user.setEmail(userEmail);
+        return user;
     }
 }
