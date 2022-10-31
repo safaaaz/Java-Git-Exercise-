@@ -9,10 +9,13 @@ public class AuthService {
 
     //key = token, value = email
     private Map<String,String> tokens;
-    private static AuthService singaleInistance=null;
+    private static AuthService singaleInistance = null;
+
+
 
     public AuthService() {
         this.tokens = new HashMap<>();
+        UserRepo.initUserRepo();
     }
 
     public String validateUserLogin(String userEmail, String userPassword) {
@@ -24,13 +27,19 @@ public class AuthService {
     }
     public String validateUserRegister(User user) {
         Map<String,User> usersData = UserRepo.getUsersData();
-        if(usersData.get(user.getEmail())!=null)
-            if(usersData.get(user.getEmail()).getEmail().equals(user.getEmail())){
-                UserRepo.saveNewUser(user);
-                return validateUserLogin(user.getEmail(), user.getPassword());
+        if(!usersData.isEmpty()) {
+            if (usersData.get(user.getEmail()) == null) {
+                    UserRepo.saveNewUser(user);
+                    return validateUserLogin(user.getEmail(), user.getPassword());
             }
-        throw new RuntimeException("Id or Email has been used!");
-
+            else{
+                throw new IllegalArgumentException("Email has been used!");
+            }
+        }
+        else{
+            UserRepo.saveNewUser(user);
+            return validateUserLogin(user.getEmail(), user.getPassword());
+        }
     }
     public static AuthService getInstance(){
         if(singaleInistance==null)

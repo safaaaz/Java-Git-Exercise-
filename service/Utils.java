@@ -1,15 +1,15 @@
 package service;
 
 public class Utils {
-    public String regexEmail = "^(.+)@(.+)$";
-    public String regexUsername = "^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$";
-    public String regexPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+    public static String regexEmail = "^(.+)@(.+)$";
+    public static String regexUsername = "^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$";
+    public static String regexPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
 
 
-    public String invalidMail = "Email Invalid";
-    public String invalidUsername = "Username Invalid";
-    public String invalidPassword = "Password Invalid";
-    public String invalidId = "Id Invalid";
+    public static String invalidMail = "Email Invalid";
+    public static String invalidUsername = "Username Invalid";
+    public static String invalidPassword = "Password Invalid";
+    public static String invalidId = "Id Invalid";
 
 
 }
