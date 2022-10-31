@@ -10,20 +10,17 @@ import java.util.regex.Pattern;
 
 public class AuthController {
     AuthService authService;
+    Utils utils = new Utils();
 
     public AuthController() {
         this.authService = AuthService.getInstance();
     }
 
     public String validateUserInput(User user) throws FileNotFoundException {
-        String regexEmail = "^(.+)@(.+)$";
-        String regexUsername = "^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$";
-        String regexPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
-
-        if( isValidUserId(user.getId())
-                && checkUserInput(user.getEmail(), regexEmail, "Email invalid")
-                && checkUserInput(user.getName(), regexUsername, "Username invalid")
-                && checkUserInput(user.getPassword(), regexPassword, "Password invalid")){
+        if(isValidUserId(user.getId())
+                && checkUserInput(user.getEmail(), utils.regexEmail, utils.invalidMail)
+                && checkUserInput(user.getName(), utils.regexUsername, utils.invalidUsername)
+                && checkUserInput(user.getPassword(), utils.regexPassword, utils.invalidPassword)){
             return authService.validateUserRegister(user);
         }
 
@@ -32,7 +29,7 @@ public class AuthController {
 
     private boolean isValidUserId(int id){
         if (id < 0) {
-            throw new IllegalArgumentException("Id invalid");
+            throw new IllegalArgumentException(utils.invalidId);
         }
         return true;
     }
