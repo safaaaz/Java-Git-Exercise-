@@ -1,15 +1,15 @@
 package service;
 
 public class UserController {
-    UserController userController;
+    UserService userService;
 
     public UserController() {
-        this.userController = new UserController();
+        this.userService = new UserService();
     }
 
     public void deleteUser(String token, String userEmail){
         if(AuthService.getInstance().getTokens().get(token)==userEmail){
-            userController.deleteUser(userEmail);
+            userService.deleteUser(userEmail);
             System.out.println("the user with email : "+userEmail+" deleted successfully ");
             return;
         }
@@ -17,7 +17,7 @@ public class UserController {
     }
     public void updateUserEmail(String token,String userEmail, String newEmail ){
         if(AuthService.getInstance().getTokens().get(token)==userEmail){
-            userController.updateUserEmail(userEmail,newEmail);
+            userService.updateUserEmail(userEmail,newEmail);
             System.out.println("User email updated from "+userEmail +" to "+newEmail);
         }
         throw new IllegalArgumentException("Incorrect token or email!");

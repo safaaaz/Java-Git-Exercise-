@@ -1,12 +1,13 @@
 package service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class UserService {
     Map<String, User> map;
 
-    public UserService(Map<String, User> map) {
-        this.map = map;
+    public UserService() {
+        this.map = new HashMap<>();
     }
 
     private User isUser(String userEmail){
@@ -21,9 +22,9 @@ public class UserService {
         return map.remove(userEmail);
     }
 
-    protected User updateUserEmail(User user , String userEmail){
+    protected User updateUserEmail(String userEmail , String newEmail){
         User userExists = isUser(userEmail);
-        user.setEmail(userEmail);
-        return user;
+        userExists.setEmail(userEmail);
+        return userExists;
     }
 }
