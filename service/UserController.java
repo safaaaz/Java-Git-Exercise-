@@ -22,4 +22,18 @@ public class UserController {
         }
         throw new IllegalArgumentException("Incorrect token or email!");
     }
+    public void updateUserName(String token,String userEmail,String newName){
+        if(AuthService.getInstance().getTokens().get(token)==userEmail){
+            userService.updateUserName(userEmail,newName);
+            System.out.println("User's name updated to "+newName);
+        }
+        throw new IllegalArgumentException("Incorrect token or email!");
+    }
+    public void updateUserPassword(String token,String userEmail,String newPassword){
+        if(AuthService.getInstance().getTokens().get(token)==userEmail){
+            userService.updateUserPassword(userEmail,newPassword);
+            System.out.println("User password has been updated successfully:)");
+        }
+        throw new IllegalArgumentException("Incorrect token or email!");
+    }
 }
