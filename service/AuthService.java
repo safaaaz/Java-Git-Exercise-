@@ -6,26 +6,28 @@ import java.util.InputMismatchException;
 import java.util.Map;
 
 public class AuthService {
-    private Map<String,User> tokens;
+
+    //key = token, value = email
+    private Map<String,String> tokens;
     private static AuthService singaleInistance=null;
 
     public AuthService() {
         this.tokens = new HashMap<>();
     }
 
-    public String validateUserLogin(int userId, String userPassword) throws FileNotFoundException {
-        Map<Integer,User> usersData = UserRepo.getUsersData();
-        if(usersData.get(userId)!=null)
-            if(usersData.get(userId).getPassword()==userPassword)
+    public String validateUserLogin(String userEmail, String userPassword) {
+        Map<String,User> usersData = UserRepo.getUsersData();
+        if(usersData.get(userEmail) != null)
+            if(usersData.get(userEmail).getPassword().equals(userPassword))
                 return "token";//save token to user in tokens and return it
         return null;
     }
-    public String validateUserRegister(User user) throws FileNotFoundException {
-        Map<Integer,User> usersData = UserRepo.getUsersData();
-        if(usersData.get(user.getId())!=null)
-            if(usersData.get(user.getId()).getEmail()!=user.getEmail()){
+    public String validateUserRegister(User user) {
+        Map<String,User> usersData = UserRepo.getUsersData();
+        if(usersData.get(user.getEmail())!=null)
+            if(usersData.get(user.getEmail()).getEmail().equals(user.getEmail())){
                 UserRepo.saveNewUser(user);
-                return validateUserLogin(user.getId(),user.getPassword());
+                return validateUserLogin(user.getEmail(), user.getPassword());
             }
         throw new RuntimeException("Id or Email has been used!");
 
