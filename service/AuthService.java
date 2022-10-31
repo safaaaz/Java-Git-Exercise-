@@ -16,11 +16,13 @@ public class AuthService {
     public String validateUserLogin(int userId, String userPassword) throws FileNotFoundException {
         Map<Integer,User> usersData = UserRepo.getUsersData();
         if(usersData.get(userId)!=null)
-            if(usersData.get(userId).getPassword()==userPassword)
-                return "token";//save token to user in tokens and return it
+            if(usersData.get(userId).getPassword()==userPassword){
+                String token = Utility.RandomString(5);
+                tokens.put(token,usersData.get(userId));
+                return token;
         return null;
     }
-    public String validateUserRegister(User user) throws FileNotFoundException {
+    public String validateUserRegister(User user) {
         Map<Integer,User> usersData = UserRepo.getUsersData();
         if(usersData.get(user.getId())!=null)
             if(usersData.get(user.getId()).getEmail()!=user.getEmail()){
