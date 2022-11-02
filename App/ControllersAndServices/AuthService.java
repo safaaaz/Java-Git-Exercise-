@@ -1,8 +1,8 @@
-package service;
+package App.ControllersAndServices;
 
-import java.io.FileNotFoundException;
+import App.Utils.Utility;
+
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Map;
 
 public class AuthService {
@@ -12,14 +12,13 @@ public class AuthService {
     private static AuthService singaleInistance = null;
 
 
-
-    public AuthService() {
+    AuthService() {
         this.tokens = new HashMap<>();
         UserRepo.initUserRepo();
     }
 
-    public String validateUserLogin(String userEmail, String userPassword) {
-        Map<String,User> usersData = UserRepo.getUsersData();
+    String validateUserLogin(String userEmail, String userPassword) {
+        Map<String, User> usersData = UserRepo.getUsersData();
         if(usersData.get(userEmail) != null)
             if(usersData.get(userEmail).getPassword().equals(userPassword)){
                 String token = Utility.RandomString(5);
@@ -28,7 +27,7 @@ public class AuthService {
                 return token;}
         throw new IllegalArgumentException("Email or password is illegal!!");
     }
-    public String validateUserRegister(User user) {
+    String validateUserRegister(User user) {
         Map<String,User> usersData = UserRepo.getUsersData();
         if(!usersData.isEmpty()) {
             if (usersData.get(user.getEmail()) == null) {
@@ -45,7 +44,7 @@ public class AuthService {
             return validateUserLogin(user.getEmail(), user.getPassword());
         }
     }
-    public static AuthService getInstance(){
+    static AuthService getInstance(){
         if(singaleInistance==null)
             singaleInistance = new AuthService();
         return singaleInistance;

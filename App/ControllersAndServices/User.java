@@ -1,8 +1,6 @@
-package service;
+package App.ControllersAndServices;
 
 import java.math.BigInteger;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.UUID;
 
 public class User {

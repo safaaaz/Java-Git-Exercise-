@@ -1,11 +1,7 @@
-package service;
+package App.ControllersAndServices;
 
-import service.AuthService;
-import service.User;
+import App.Utils.Utils;
 
-import java.io.FileNotFoundException;
-import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AuthController {
@@ -17,13 +13,12 @@ public class AuthController {
 
 //    public String validateUserInput(User user) {
     public String createNewUser(String userName,String userEmail,String userPassword) {
-        //Yael should enter a unique id for the user
         return this.validateUserInput(new User(userEmail,userName,userPassword));
     }
     public String userLogin(String userEmail,String userPassword){
         return authService.validateUserLogin(userEmail,userPassword);
     }
-    public String validateUserInput(User user){
+    private String validateUserInput(User user){
         if(isValidUserId(user.getId())
                 && checkUserInput(user.getEmail(), Utils.regexEmail, Utils.invalidMail)
                 && checkUserInput(user.getName(), Utils.regexUsername, Utils.invalidUsername)

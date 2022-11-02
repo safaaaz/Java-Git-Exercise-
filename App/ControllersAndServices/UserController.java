@@ -1,4 +1,4 @@
-package service;
+package App.ControllersAndServices;
 
 public class UserController {
     UserService userService;
