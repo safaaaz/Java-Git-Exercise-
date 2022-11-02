@@ -1,4 +1,4 @@
-package service;
+package App.ControllersAndServices;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -19,7 +19,7 @@ public class UserRepo {
     private UserRepo() {
     }
 
-    public static void initUserRepo(){
+    static void initUserRepo(){
         gson = new Gson();
         usersData = new HashMap<>();
         createUsersFile();
@@ -69,7 +69,7 @@ public class UserRepo {
         writeToFile();
     }
 
-    public static Map<String, User> getUsersData(){
+    static Map<String, User> getUsersData(){
         return usersData;
     }
 

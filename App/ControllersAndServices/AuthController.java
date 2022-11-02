@@ -1,11 +1,7 @@
-package service;
+package App.ControllersAndServices;
 
-import service.AuthService;
-import service.User;
+import App.Utils.Utils;
 
-import java.io.FileNotFoundException;
-import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AuthController {
